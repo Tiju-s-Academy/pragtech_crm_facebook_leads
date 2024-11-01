@@ -355,7 +355,10 @@ class CrmLead(models.Model):
         fb_api = "https://graph.facebook.com/v10.0/"
         for form in self.env['crm.facebook.form'].search([('state', '=', 'confirm')]):
             _logger.info(' Get leads: %s' % form.name)
-            r = requests.get(fb_api + form.fb_form_id + "/leads", params={'access_token': form.access_token,
-                                                                          'fields': 'campaign_id, field_data, created_time, is_organic,ad_id, campaign_name, adset_name, ad_nameadset_id'}).json()
+            req = requests.get(fb_api + form.fb_form_id + "/leads", params={'access_token': form.access_token,
+                                                                          'fields': 'campaign_id, field_data, created_time, is_organic,ad_id, campaign_name, adset_name, ad_nameadset_id'})
+            r = req.json()
+            _logger.error(f'Response from {fb_api}: \nStatus Code: {req.status_code} \nData: {r}')
             self.lead_execution(r, form)
+
         _logger.info('Leads Created Successfully !')
