@@ -335,11 +335,13 @@ class CrmLead(models.Model):
 
     def lead_execution(self, r, form):
         if not r.get('data'):
+            _logger.error(f'No data found!')
             return
         for lead in r['data']:
             lead = self.execute_lead_field_data(lead)
             if not self.search(
                     [('fb_lead_id', '=', lead.get('id')), '|', ('active', '=', True), ('active', '=', False)]):
+                _logger.error(f'Calling: self.lead_generation(lead, form)')
                 self.lead_generation(lead, form)
         try:
             self.env.cr.commit()
