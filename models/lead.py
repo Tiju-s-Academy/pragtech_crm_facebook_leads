@@ -339,10 +339,13 @@ class CrmLead(models.Model):
             return
         for lead in r['data']:
             lead = self.execute_lead_field_data(lead)
-            if not self.search(
-                    [('fb_lead_id', '=', lead.get('id')), '|', ('active', '=', True), ('active', '=', False)]):
+            existing_leads = self.search(
+                    [('fb_lead_id', '=', lead.get('id')), '|', ('active', '=', True), ('active', '=', False)])
+            if not existing_leads:
                 _logger.error(f'Calling: self.lead_generation(lead, form)')
                 self.lead_generation(lead, form)
+            else:
+                _logger.error(f'Existing Leads: {existing_leads}')
         try:
             self.env.cr.commit()
         except Exception:
