@@ -359,7 +359,7 @@ class CrmLead(models.Model):
             req = requests.get(fb_api + form.fb_form_id + "/leads", params={'access_token': form.access_token,
                                                                           'fields': 'campaign_id, field_data, created_time, is_organic,ad_id, campaign_name, adset_name, ad_nameadset_id'})
             r = req.json()
-            _logger.error(f'Response from {fb_api}: \nStatus Code: {req.status_code} \nData: {r}')
+            _logger.error(f'Response from {fb_api}: \nStatus Code: {req.status_code}')
             self.lead_execution(r, form)
 
         _logger.info('Leads Created Successfully !')
