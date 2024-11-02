@@ -232,6 +232,7 @@ class CrmLead(models.Model):
 
     def lead_generation(self, lead, form):
         vals = self.generate_lead_creation(lead, form)
+        _logger.error(f"Lead Vals to Create: {vals}")
         return self.create(vals)
 
     def fetch_opportunity_name(self, vals, lead, form):
