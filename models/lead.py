@@ -223,7 +223,7 @@ class CrmLead(models.Model):
                            self.fetch_campaign(lead),
             'source_id': source_id.id,
             'medium_id': medium_id.id,
-            'user_id': form.team_id and form.team_id.user_id and form.team_id.user_id.id or False,
+            'user_id': False,
             'fb_adset_id': self.fetch_adset(lead),
             'fb_form_id': form.id,
             'fb_date_create': lead['created_time'].split('+')[0].replace('T', ' ')
