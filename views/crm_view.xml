@@ -28,8 +28,9 @@
         <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
         <field name="arch" type="xml">
             <xpath expr='//field[@name="name"]' position='after'>
-                 <field name="fb_form_id"/>
-                <field name="fb_page_id"/>
+                <!-- Commented out Facebook fields from tree view as requested -->
+                <!-- <field name="fb_form_id"/>
+                <field name="fb_page_id"/> -->
             </xpath>
         </field>
     </record>
